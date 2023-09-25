@@ -1,0 +1,231 @@
+openapi: 3.0.3
+info:
+  title: OpenAPI specification for Question 1
+  description: |-
+    This is the OpenAPI specification
+    
+
+  version: 1.0.11
+
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: Lecturer
+    description: Information regarding the lecturers
+  - name: Office
+    description: Information on which lecturer works in which office
+  - name: Course
+    description: Information on what courses a lecturer teaches
+    
+paths:
+  /lecturer:
+    summary: Things about lecturer
+    get:
+      tags:
+        - Lecturer
+      summary: Get all lecturers
+      operationId: allLecturers
+      responses:
+        200:
+          description: Success
+        400: 
+          description: Incorrect input
+        default:
+          description: Failed
+    post:
+      tags:
+        - Lecturer
+      summary: Adds a new lecturer
+      responses:
+        200:
+          description: Success
+        400: 
+          description: Incorrect input
+        default:
+          description: Failed
+      operationId: addLecturer
+      description: Creates a new lecturer entry in the lecturer table
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Lecturer"
+    put:
+      tags:
+        - Lecturer
+      summary: Updates a lecturer's information
+      responses:
+        200:
+          description: Success
+        400: 
+          description: Incorrect input
+        default:
+          description: Failed
+      operationId: updateLecturer
+      description: Updates a lecturer's information in the lecturer table
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Lecturer"
+              
+  /lecturer/{staffNumber}:
+    parameters:
+      - name: staffNumber
+        in: path
+        description: staffNumber of the lecturer
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - Lecturer
+      summary: get a lecturer by staff number
+      operationId: searchLecturerByNumber
+      description: returns the lecturer with the specified staff number
+      responses:
+        "200":
+          description: lecturer response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lecturer"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+    delete:
+      tags:
+        - Lecturer
+      summary: delete a lecturer by staff number
+      operationId: lecturerByNumber
+      description: deletes the lecturer with the specified staff number
+      responses:
+        "200":
+          description: lecturer response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lecturer"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+  
+  /lecturer/{faculty}:
+    parameters:
+      - name: faculty
+        in: path
+        description: faculty of the lecturer
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - Lecturer
+      summary: get all lecturers who work in same faculty
+      operationId: searchLecturerInFaculty
+      description: returns all lecturers who work in the same faculty
+      responses:
+        "200":
+          description: lecturer response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lecturer"
+        default:
+          $ref: "#/components/responses/ErrorResponse"  
+          
+  /lecturer/{course}:
+    parameters:
+      - name: course
+        in: path
+        description: course that the lecturer teaches 
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - Lecturer
+      summary: get all lecturers who teach specified course
+      operationId: searchLecturerByCourse
+      description: returns all lecturers who teach same course
+      responses:
+        "200":
+          description: lecturer response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lecturer"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+          
+  /lecturer/{office}:
+    parameters:
+      - name: office
+        in: path
+        description: offices the lecturers work in 
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - Lecturer
+      summary: get all lecturers who work in specified office
+      operationId: searchLecturerByOffice
+      description: returns all lecturers who work in same office
+      responses:
+        "200":
+          description: lecturer response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lecturer"
+        default:
+          $ref: "#/components/responses/ErrorResponse"  
+        
+        
+components:
+  schemas:
+    Lecturer:
+      title: Lecturer
+      type: object
+      properties:
+        staff_number:
+          type: integer
+          description: the staff number 
+        office_number:
+          type: integer
+          description: the number of the office the lecturer is working in
+        staff_name:
+          type: string
+          description: the name of the lecturer
+        title:
+          type: string
+          description: the title of the lecturer
+        faculty:
+          type: string
+          description: the faculty the lecturer belongs to
+        courses:
+          type: array
+          items:
+            type: string
+          description: a list of all courses the lecturer teaches
+          
+    Error:
+      type: object
+      properties:
+        errorType:
+          type: string
+          enum:
+            - BadRequest
+
+            - Not Found
+
+            - InternalServerError
+        message:
+          type: string
+
+  responses:
+    ErrorResponse:
+      description: Error handling user
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"  
