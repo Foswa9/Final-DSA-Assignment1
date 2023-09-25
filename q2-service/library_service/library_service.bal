@@ -1,6 +1,6 @@
 import ballerina/grpc;
 
-// Define a map to store our books and users in memory.
+// Define a map to store the books and users in memory.
 map<Book> books = {};
 map<User> users = {};
 
@@ -10,7 +10,7 @@ listener grpc:Listener ep = new (9090);
 service "Library" on ep {
 
     remote function AddBook(AddBookRequest value) returns AddBookResponse|error {
-        // Check if the book already exists.
+        // Checking if the book already exists.
         if (books.hasKey(value.book.isbn)) {
             return error("The book already exists.");
         }
@@ -63,7 +63,7 @@ service "Library" on ep {
             return error("The book does not exist.");
         }
 
-        // Update the book in our map.
+        // Update the book in the map.
         books[value.isbn] = value.book;
 
         // Create a new UpdateBookResponse message.
@@ -81,7 +81,7 @@ service "Library" on ep {
              return error("The book does not exist.");
          }
 
-         // Remove the book from our map.
+         // Remove the book from the map.
          _ = books.remove(value.isbn);
 
          // Create a new RemoveBookResponse message with the updated list of books.
@@ -114,7 +114,7 @@ service "Library" on ep {
       }
 
      remote function LocateBook(LocateBookRequest value) returns LocateBookResponse|error {
-          // Find the book in our map.
+          // Find the book in the map.
           Book? bookOptional = books[value.isbn];
 
           // If the book is not found or is not available, return an error.
@@ -134,7 +134,7 @@ service "Library" on ep {
       }
 
      remote function BorrowBook(BorrowBookRequest value) returns BorrowBookResponse|error {
-    // Find the user in our map.
+    // Find the user in the map.
     User? userOptional = users[value.userId];
 
     // If the user is not found, return an error.
@@ -142,7 +142,7 @@ service "Library" on ep {
         return error("The user does not exist.");
     }
 
-    // Find the book in our map.
+    // Find the book in the map.
     Book? bookOptional = books[value.isbn];
 
     // If the book is not found or is not available, return an error.
@@ -162,7 +162,7 @@ service "Library" on ep {
         status: false
     };
 
-    // Update the book in our map.
+    // Update the book in the map.
     books[value.isbn] = updatedBook;
 
     // Create a new BorrowBookResponse message indicating success.
