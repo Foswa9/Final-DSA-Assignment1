@@ -1,0 +1,78 @@
+8. Get all lecturers
+
+http://localhost:9000/allLecturers
+
+
+1. Add a lecturer
+
+http://localhost:9000/addLecturer
+
+{
+  "staffNumber":2,
+  "officeNumber":10,
+  "firstName":"robert",
+  "lastName":"normandie",
+  "title":"senior lecturer",
+  "listOfCourses": ["math", "english", "cs"],
+  "faculty": "computing"
+}
+
+
+2. Get all lecturers in same faculty
+
+http://localhost:9000/searchLecturerInFaculty?faculty=computing
+query param 
+faculty = x 
+
+
+3. Update existing lecturer
+
+http://localhost:9000/updateLecturer
+
+
+  {
+    "staffNumber": 1,
+    "officeNumber": 10,
+    "firstName": "bob",
+    "lastName": "johnson",
+    "title": "Junior lecturer of CS",
+    "listOfCourses": [
+      "math",
+      "english",
+      "cs"
+    ],
+    "faculty": "computing"
+  }
+
+
+  4. Search via staff number 
+
+  http://localhost:9000/searchLecturerByNumber?staffNumber=1
+
+  staffNumber = x 
+
+
+  5. Delete lecturer via staff number 
+
+
+  http://localhost:9000/lecturerByNumber/2
+
+  no query param 
+
+  /x where x is staff number 
+
+  
+  6. Get lecturer via course 
+
+  http://localhost:9000/searchLecturerByCourse?courseName=bio
+
+  courseName = x 
+
+
+7. Get all lecturers in same office
+
+http://localhost:9000/searchLecturerByOffice?officeNumber=10
+
+officeNumber = x 
+
+
