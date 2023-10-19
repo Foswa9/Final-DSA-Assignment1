@@ -1,9 +1,9 @@
-8. Get all lecturers
+8. Get all lecturers (GET)
 
 http://localhost:9000/allLecturers
 
 
-1. Add a lecturer
+1. Add a lecturer (POST)
 
 http://localhost:9000/addLecturer
 
@@ -18,14 +18,14 @@ http://localhost:9000/addLecturer
 }
 
 
-2. Get all lecturers in same faculty
+2. Get all lecturers in same faculty (GET)
 
 http://localhost:9000/searchLecturerInFaculty?faculty=computing
 query param 
 faculty = x 
 
 
-3. Update existing lecturer
+3. Update existing lecturer (PUT)
 
 http://localhost:9000/updateLecturer
 
@@ -45,14 +45,14 @@ http://localhost:9000/updateLecturer
   }
 
 
-  4. Search via staff number 
+  4. Search via staff number (GET)
 
   http://localhost:9000/searchLecturerByNumber?staffNumber=1
 
   staffNumber = x 
 
 
-  5. Delete lecturer via staff number 
+  5. Delete lecturer via staff number (DEL)
 
 
   http://localhost:9000/lecturerByNumber/2
@@ -62,14 +62,14 @@ http://localhost:9000/updateLecturer
   /x where x is staff number 
 
   
-  6. Get lecturer via course 
+  6. Get lecturer via course (GET)
 
   http://localhost:9000/searchLecturerByCourse?courseName=bio
 
   courseName = x 
 
 
-7. Get all lecturers in same office
+7. Get all lecturers in same office (GET)
 
 http://localhost:9000/searchLecturerByOffice?officeNumber=10
 
